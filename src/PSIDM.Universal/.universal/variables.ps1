@@ -1,0 +1,4 @@
+New-PSUVariable -Name "PSIDM-ADRead"    -Vault "PSUSecretStore" -Type "PSCredential" -Description "Used for read-only operations with Active Directory."    -Role @('Administrator','PSIDMAdministrator')
+New-PSUVariable -Name "PSIDM-ADWrite"   -Vault "PSUSecretStore" -Type "PSCredential" -Description "Used for modification operations with Active Directory." -Role @('Administrator','PSIDMAdministrator')
+New-PSUVariable -Name "PSIDM-NetShare"  -Vault "PSUSecretStore" -Type "PSCredential" -Description "Used for authenticated SMB File Share mapping."          -Role @('Administrator','PSIDMAdministrator')
+New-PSUVariable -Name "PSIDM-SMTPAuth"  -Vault "PSUSecretStore" -Type "PSCredential" -Description "SMTP Authentication credential."                         -Role @('Administrator','PSIDMAdministrator')
