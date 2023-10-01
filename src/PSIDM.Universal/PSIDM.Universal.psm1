@@ -31,7 +31,7 @@ foreach ($file in @($public + $private)) {
 
     }
 }
-
+Initialize-PSDIDMConfig -Force
 function New-PSIDMUniversalApp {
     $Navigation = {
         New-UDListItem -Label 'Home' -Icon (New-UDMaterialDesignIcon -Icon 'MdHome') -Href '/home'
