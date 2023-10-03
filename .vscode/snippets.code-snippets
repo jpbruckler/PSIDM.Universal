@@ -1,0 +1,48 @@
+{
+	// Place your PSIDM.Universal workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	"PSIDM.Universal - New Pester Unit Test - InModuleScope": {
+		"scope": "powershell",
+		"prefix": "psidm-pester-pub",
+		"body": [
+			"#-------------------------------------------------------------------------",
+			"Set-Location -Path \\$PSScriptRoot",
+			"#-------------------------------------------------------------------------",
+			"\\$ModuleName = 'PSIDM.Universal'",
+			"\\$PathToManifest = [System.IO.Path]::Combine('..', '..', '..', \\$ModuleName, \"\\$ModuleName.psd1\")",
+			"#-------------------------------------------------------------------------",
+			"if (Get-Module -Name \\$ModuleName -ErrorAction 'SilentlyContinue') {",
+			"	#if the module is already in memory, remove it",
+			"	Remove-Module -Name \\$ModuleName -Force",
+			"}",
+			"Import-Module \\$PathToManifest -Force",
+			"#-------------------------------------------------------------------------",
+			"",
+			"InModuleScope PSIDM.Universal {",
+			"	Describe '${1:FunctionName}' {",
+			"		Context 'When ${2:Condition}' {",
+			"			It 'Should ${3:DoSomething}' {",
+			"			$0
+			"			}",
+			"		}",
+			"	}",
+			"}"
+		],
+		"description": "New Public Pester Unit Test with InModuleScope"
+	}
+}

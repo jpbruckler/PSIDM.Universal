@@ -28,12 +28,11 @@ foreach ($file in @($public + $private)) {
     }
     catch {
         throw "Unable to dot source [$($file.FullName)]"
-
     }
 }
 
 if (Test-Path (Join-Path $PSScriptRoot -ChildPath 'conf\config.json')) {
-    Import-PSIDMConfig
+    Import-PSIDMConfig -ConfigName 'Module'
 }
 else {
     Write-Warning 'Configuration file not found. Initializing with default values.'
