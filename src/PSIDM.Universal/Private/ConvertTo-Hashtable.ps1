@@ -23,7 +23,10 @@ function ConvertTo-Hashtable {
             }
             elseif ($value -is [Array]) {
                 $hash[$key] = @($value | ForEach-Object {
-                    if ($_ -is [PSCustomObject]) {
+                    if ($value -is [string] -or $value -is [int] -or $value -is [double] -or $value -is [bool]) {
+                        $hash[$key] = $value
+                    }
+                    elseif ($_ -is [PSCustomObject]) {
                         ConvertTo-Hashtable -Object $_ -Depth ($Depth - 1)
                     }
                     else {

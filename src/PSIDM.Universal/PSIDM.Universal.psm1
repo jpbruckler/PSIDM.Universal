@@ -1,5 +1,7 @@
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions','')]
+[CmdletBinding()]
 param()
+
 # this psm1 is for local testing and development use only
 
 # dot source the parent import for local development variables
@@ -9,12 +11,13 @@ param()
 
 $itemSplat = @{
     Filter      = '*.ps1'
-    Recurse     = $true
+    Recurse     = $false
     ErrorAction = 'Stop'
 }
+
 try {
-    $public = @(Get-ChildItem -Path "$PSScriptRoot\Public" @itemSplat)
-    $private = @(Get-ChildItem -Path "$PSScriptRoot\Private" @itemSplat)
+    $public = @(Get-ChildItem -Path "$PSScriptRoot\Public" @itemSplat -Verbose)
+    $private = @(Get-ChildItem -Path "$PSScriptRoot\Private" @itemSplat -Verbose)
 }
 catch {
     Write-Error $_
@@ -24,6 +27,7 @@ catch {
 # dot source all .ps1 file(s) found
 foreach ($file in @($public + $private)) {
     try {
+        Write-Verbose "Dot sourcing $($file.FullName)"
         . $file.FullName
     }
     catch {
@@ -31,13 +35,17 @@ foreach ($file in @($public + $private)) {
     }
 }
 
-if (Test-Path (Join-Path $PSScriptRoot -ChildPath 'conf\config.json')) {
-    Import-PSIDMConfig -ConfigName 'Module'
+try {
+    Import-PSIDMConfig -Force
 }
-else {
+catch {
     Write-Warning 'Configuration file not found. Initializing with default values.'
     Initialize-PSIDMConfig -Force
+    Write-Error "Error encountered: $_"
 }
 
+
+$export = $public + $private
+
 # export all public functions
-Export-ModuleMember -Function $public.BaseName
+Export-ModuleMember -Function $export.BaseName

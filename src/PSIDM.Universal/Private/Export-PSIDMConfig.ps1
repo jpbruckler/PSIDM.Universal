@@ -13,10 +13,6 @@ function Export-PSIDMConfig {
         The configuration object to be exported. Defaults to the script-scoped
         variable $Script:PSIDM.
 
-    .PARAMETER Path
-        The path where the configuration JSON file will be saved. Defaults to
-        'conf\config.json' in the parent directory of the script.
-
     .PARAMETER UpdateSession
         If this switch is provided, the function will update the current session's
         configuration using Import-PSIDMConfig.
@@ -27,49 +23,59 @@ function Export-PSIDMConfig {
         This example exports the current $Script:PSIDM configuration to the
         default path and updates the session.
 
-    .EXAMPLE
-        Export-PSIDMConfig -Path 'C:\CustomPath\config.json'
-
-        This example exports the current $Script:PSIDM configuration to a custom
-        path.
-
     .NOTES
         If the specified path does not exist, the function will attempt to create
         it.
 
     #>
-
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [Alias('Config')]
         [System.Collections.Hashtable] $InputObject = $Script:PSIDM,
 
-        [Parameter(Mandatory = $false)]
-        [System.IO.FileInfo] $Path = (Split-Path $PSScriptRoot -Parent | Join-Path -ChildPath 'conf\config.json'),
-
         [switch] $UpdateSession
     )
 
+    begin {
+        $configFileMap = Get-ConfigFileMap
+    }
     process {
+        Write-Debug "InputObject: $($InputObject | ConvertTo-Json -Depth 10)"
         if (-not $InputObject) {
-            Write-Error 'No configuration available. Please provide a configuration object or ensure the script has a valid configuration.'
-            return
+            Write-Debug 'No InputObject was passed, and $Script:PSIDM is null.'
+            throw [System.ArgumentNullException] 'No configuration available. Please provide a configuration object or ensure the script has a valid configuration.'
         }
 
-        if (-not (Test-Path (Split-Path $Path))) {
-            New-Item -ItemType Directory -Path (Split-Path $Path) -Force
-        }
+        $configFileMap.GetEnumerator() | ForEach-Object {
+            $configName = $_.Key
+            $configPath = $_.Value
 
-        try {
-            $InputObject | ConvertTo-Json -Depth 10 | Out-File -FilePath $Path -Force -ErrorAction Stop
+            Write-Debug "Config name: $configName"
+            Write-Debug "Config path: $configPath"
 
-            if ($UpdateSession) {
-                Import-PSIDMConfig -Path $Path
+            if ($null -eq $InputObject.$configName) {
+                Write-Debug "Configuration '$configName' is null. Skipping."
+                continue
             }
-        }
-        catch {
-            Write-Error "Unable to export configuration to file '$Path'. Error: $($_.Exception.Message)"
+            else {
+                Write-Debug "Exporting configuration '$configName' to '$configPath'."
+                Write-Verbose "Exporting configuration '$configName' to '$configPath'."
+                $InputObject.$configName | ConvertTo-Json -Depth 10 | Out-File -FilePath $configPath -Encoding UTF8 -Force
+
+                Write-Debug "Checking if we need to update the session..."
+                if ($UpdateSession) {
+                    if (-not(Get-Variable -Name PSIDM -ErrorAction SilentlyContinue -Scope Script)) {
+                        Write-Debug "Session configuration does not exist. Creating..."
+                        $Script:PSIDM = @{
+                            'Module'    = @{ }
+                            'Navigator' = @{ }
+                        }
+                    }
+                    Write-Verbose "Updating session configuration with '$configName'..."
+                    $Script:PSIDM[$configName] = $InputObject.$configName
+                }
+            }
         }
     }
 }
