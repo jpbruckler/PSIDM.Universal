@@ -19,7 +19,7 @@ function Get-ConfigFileMap {
     Write-Debug -Message "Config root: $configRoot"
     $configFileMap = @{
         'Module'    = Join-Path -Path $configRoot -ChildPath 'config.json'
-        'Navigator' = Join-Path -Path $configRoot -ChildPath 'navigator.json'
+        'Jobs'      = Join-Path -Path $configRoot -ChildPath 'jobs.json'
     }
 
     return $configFileMap

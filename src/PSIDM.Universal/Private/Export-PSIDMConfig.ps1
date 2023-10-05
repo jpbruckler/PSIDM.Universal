@@ -69,7 +69,7 @@ function Export-PSIDMConfig {
                         Write-Debug "Session configuration does not exist. Creating..."
                         $Script:PSIDM = @{
                             'Module'    = @{ }
-                            'Navigator' = @{ }
+                            'Jobs'      = @{ }
                         }
                     }
                     Write-Verbose "Updating session configuration with '$configName'..."

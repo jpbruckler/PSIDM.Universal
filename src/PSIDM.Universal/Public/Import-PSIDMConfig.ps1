@@ -20,8 +20,8 @@ function Import-PSIDMConfig {
         is used.
     .PARAMETER ConfigName
         The configuration file(s) to import. Valid values are 'Module',
-        'Navigator', and 'All'. If 'All' is specified, both the 'Module' and
-        'Navigator' configuration files will be imported.
+        'Jobs', and 'All'. If 'All' is specified, both the 'Module' and
+        'Jobs' configuration files will be imported.
     .PARAMETER PassThru
         If specified, the final merged configuration will be returned.
     .PARAMETER Force
@@ -33,7 +33,7 @@ function Import-PSIDMConfig {
         variable 'PSIDM' to the merged configuration.
     .EXAMPLE
         PS C:\> Import-PSIDMConfig -Config 'All'
-        This will import both the 'Module' and 'Navigator' configuration files and
+        This will import both the 'Module' and 'Jobs' configuration files and
         set the script-scoped variable 'PSIDM' to the merged configuration.
     .INPUTS
         None
@@ -42,7 +42,7 @@ function Import-PSIDMConfig {
     #>
     [CmdletBinding()]
     param(
-        [ValidateSet('Module', 'Navigator', 'All')]
+        [ValidateSet('Module', 'Jobs', 'All')]
         [string[]] $ConfigName = 'All',
         [switch] $Force,
         [switch] $PassThru
@@ -56,12 +56,12 @@ function Import-PSIDMConfig {
     }
     process {
         $mergedCfg = @{
-            'Module'    = @{  }
-            'Navigator' = @{ }
+            'Module'    = @{ }
+            'Jobs'      = @{ }
         }
 
         if ($ConfigName -contains 'All') {
-            $ConfigName = @('Module', 'Navigator')
+            $ConfigName = @('Module', 'Jobs')
         }
 
         foreach ($File in $ConfigName) {
@@ -79,7 +79,7 @@ function Import-PSIDMConfig {
 
         # Throw an exception if no files were found
         if ($mergedCfg.Count -eq 0) {
-            $missingFiles = ($configFileMap.Keys | Where-Object { $_ -in @('Module', 'Navigator') } | ForEach-Object { $configFileMap[$_] }) -join ', '
+            $missingFiles = ($configFileMap.Keys | Where-Object { $_ -in @('Module', 'Jobs') } | ForEach-Object { $configFileMap[$_] }) -join ', '
             throw [System.IO.FileNotFoundException] "No configuration files found. Call Initialize-PSIDMConfig to create a new configuration file. If you have already initialized the configuration, make sure the configuration file exists at '$missingFiles'."
         }
 

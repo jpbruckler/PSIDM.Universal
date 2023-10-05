@@ -82,30 +82,30 @@ function Initialize-PSIDMConfig {
         }
 
 
-        Write-Debug "Testing existence of $($configFileMap['Navigator'])"
-        if (-not (Test-Path $configFileMap['Navigator'])) {
-            Write-Verbose "Navigator config file ($($configFileMap['Navigator'])) does not exist, or Initialize-PSIDMConfig called with -Force."
+        Write-Debug "Testing existence of $($configFileMap['Jobs'])"
+        if (-not (Test-Path $configFileMap['Jobs'])) {
+            Write-Verbose "Jobs config file ($($configFileMap['Jobs'])) does not exist, or Initialize-PSIDMConfig called with -Force."
             Write-Verbose "Initializing configuration with default values."
-            $navigatorCfg = Get-Content (Join-Path $resourceRoot -ChildPath 'navigator.json.tpl') -Raw | ConvertFrom-Json
+            $jobsCfg = Get-Content (Join-Path $resourceRoot -ChildPath 'jobs.json.tpl') -Raw | ConvertFrom-Json
 
-            Write-Debug "Writing navigator configuration to $($configFileMap['Navigator'])"
-            Write-Debug "Module configuration (JSON representation): $($navigatorCfg | ConvertTo-Json)"
+            Write-Debug "Writing jobs configuration to $($configFileMap['Jobs'])"
+            Write-Debug "Module configuration (JSON representation): $($jobsCfg | ConvertTo-Json)"
 
             try {
-                $navigatorCfg | ConvertTo-Json | Set-Content -Path $configFileMap['Navigator'] -Force -ErrorAction Stop
+                $jobsCfg | ConvertTo-Json | Set-Content -Path $configFileMap['Jobs'] -Force -ErrorAction Stop
             }
             catch {
-                throw "Failed to write Navigator configuration to $($configFileMap['Navigator']). Error: $_"
+                throw "Failed to write Jobs configuration to $($configFileMap['Jobs']). Error: $_"
             }
-            Write-Warning "Navigator configuration has been set from default values. Please review the configuration file at $($configFileMap['Navigator']) and make any necessary changes."
+            Write-Warning "Jobs configuration has been set from default values. Please review the configuration file at $($configFileMap['Jobs']) and make any necessary changes."
         }
 
         $moduleCfg      = Get-Content -Path $configFileMap['Module'] -Raw | ConvertFrom-Json -Depth 10
-        $navigatorCfg   = Get-Content -Path $configFileMap['Navigator'] -Raw | ConvertFrom-Json -Depth 10
+        $jobsCfg   = Get-Content -Path $configFileMap['Jobs'] -Raw | ConvertFrom-Json -Depth 10
 
         $mergedCfg      = @{
             Module      = $moduleCfg
-            Navigator   = $navigatorCfg
+            Jobs   = $jobsCfg
         }
 
         Set-Variable -Scope Script -Name 'PSIDM' -Value $mergedCfg -Force

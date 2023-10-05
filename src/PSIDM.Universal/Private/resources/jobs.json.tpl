@@ -1,5 +1,5 @@
 {
-  "JobFileMap": [
+  "JobList": [
     {
       "JobId": "a2290ab1-24fa-4677-bea7-8f1427268e37",
       "JobScript": "onboard.ps1",
