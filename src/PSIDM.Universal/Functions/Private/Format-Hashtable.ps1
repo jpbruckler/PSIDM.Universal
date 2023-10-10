@@ -1,4 +1,4 @@
-function Format-PrettyPrintHashtable {
+function Format-Hashtable {
     param (
         [Parameter( Mandatory = $true,
                     valueFromPipeline = $true,

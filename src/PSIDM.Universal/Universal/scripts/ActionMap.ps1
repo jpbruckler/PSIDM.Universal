@@ -6,35 +6,73 @@
     The hashtable is used by the PSIDM job scripts to determine which actions
     are available for the job.
 #>
-$Actions = @{
-    Disable = [scriptblock]{
+$Actions = @(
+    @{
+        Name = 'Enable'
+        ScriptBlock = [scriptblock]{
         param(
             [Parameter(Mandatory = $true)]
-            [object] $user
+            [object] $User
         )
 
-        $user | Disable-ADAccount
+            $User | Enable-ADAccount
+        }
+    },
+    @{
+        Name = 'Disable'
+        ScriptBlock = [scriptblock]{
+        param(
+            [Parameter(Mandatory = $true)]
+            [object] $User
+        )
+
+            $User | Disable-ADAccount
+        }
+    },
+    @{
+        Name = 'DisableAndMove'
+        ScriptBlock = [scriptblock]{
+        param(
+            [Parameter(Mandatory = $true)]
+            [object] $User
+        )
+            $targetPath = Get-PSIDMConfig -Key 'DisabledUsersOU'
+            if ($null -eq $targetPath) {
+                throw 'Unable to get DisabledUsersOU from configuration.'
+            }
+
+            $User | Disable-ADAccount
+            $User | Move-ADObject -TargetPath $targetPath
+        }
+    }
+    <#Disable = [scriptblock]{
+        param(
+            [Parameter(Mandatory = $true)]
+            [object] $User
+        )
+
+        $User | Disable-ADAccount
     }
     DisableAndMove = [scriptblock]{
         param(
             [Parameter(Mandatory = $true)]
-            [object] $user,
+            [object] $User,
 
             [Parameter(Mandatory = $true)]
             [string] $target
         )
 
-        $user | Disable-ADAccount
-        $user | Move-ADObject -TargetPath $target
+        $User | Disable-ADAccount
+        $User | Move-ADObject -TargetPath $target
     }
     RemoveAllGroups = [scriptblock]{
         param(
             [Parameter(Mandatory = $true)]
-            [object] $user
+            [object] $User
         )
 
-        $user | Get-ADPrincipalGroupMembership | Remove-ADPrincipalGroupMembership -Confirm:$false
-    }
-}
+        $User | Get-ADPrincipalGroupMembership | Remove-ADPrincipalGroupMembership -Confirm:$false
+    }#>
+)
 
 return $Actions

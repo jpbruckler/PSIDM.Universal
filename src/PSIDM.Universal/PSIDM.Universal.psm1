@@ -35,6 +35,8 @@ foreach ($file in @($public + $private)) {
     }
 }
 
+# Import configuration and setup script-scoped variables.
+# This makes configuration available via Get-PSIDMConfig.
 try {
     Import-PSIDMConfig
 }
