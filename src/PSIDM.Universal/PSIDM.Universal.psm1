@@ -16,8 +16,8 @@ $itemSplat = @{
 }
 
 try {
-    $public = @(Get-ChildItem -Path "$PSScriptRoot\Public" @itemSplat -Verbose)
-    $private = @(Get-ChildItem -Path "$PSScriptRoot\Private" @itemSplat -Verbose)
+    $public     = @(Get-ChildItem -Path "$PSScriptRoot\Functions\Public" @itemSplat -Verbose)
+    $private    = @(Get-ChildItem -Path "$PSScriptRoot\Functions\Private" @itemSplat -Verbose)
 }
 catch {
     Write-Error $_
@@ -36,9 +36,9 @@ foreach ($file in @($public + $private)) {
 }
 
 try {
-    Import-PSIDMConfig -Force
+    Import-PSIDMConfig
 }
-catch {
+catch [System.IO.FileNotFoundException] {
     Write-Warning 'Configuration file not found. Initializing with default values.'
     Initialize-PSIDMConfig -Force
     Write-Error "Error encountered: $_"

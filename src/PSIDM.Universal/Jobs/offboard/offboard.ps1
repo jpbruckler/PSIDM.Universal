@@ -57,20 +57,15 @@ foreach ($item in $csv) {
     }
 
     if ($null -eq $jobInfo.Actions) {
+        # No actions defined. Just disable the user.
         # check for an OU called 'Disabled Users'
-        $ouSearch = Get-ADOrganizationalUnit -Filter "Name -eq 'Disabled Users'" -ErrorAction SilentlyContinue
-        if ($null -ne $ouSearch) {
-            $targetOU = $ouSearch.DistinguishedName
-            $jobInfo.Actions += @{
-                'ActionName' = 'DisableAndMove'
-                'Parameters' = $targetOU
-            }
+        $jobInfo.Actions += @{
+            'ActionName' = 'Disable'
         }
-        else {
-            $jobInfo.Actions += @{
-                'ActionName' = 'Disable'
-            }
-        }
+    }
+
+    foreach ($action in $jobInfo.Actions) {
+        Invoke-PSIDMAction -Action $action.ActionName -ADObject $adUser -JobInfo $jobInfo
     }
 }
 
