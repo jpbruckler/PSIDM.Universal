@@ -1,0 +1,230 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <Obj N="UAJob" RefId="1">
+        <TN RefId="1">
+          <T>Deserialized.PowerShellUniversal.Job</T>
+          <T>Deserialized.System.Object</T>
+        </TN>
+        <ToString>PowerShellUniversal.Job</ToString>
+        <Props>
+          <I64 N="Id">1</I64>
+          <DT N="CreatedTime">2023-10-11T19:57:19.968-04:00</DT>
+          <DT N="StartTime">2023-10-11T19:57:19.968-04:00</DT>
+          <DT N="EndTime">0001-01-01T00:00:00</DT>
+          <Obj N="Status" RefId="2">
+            <TN RefId="2">
+              <T>Deserialized.PowerShellUniversal.JobStatus</T>
+              <T>Deserialized.System.Enum</T>
+              <T>Deserialized.System.ValueType</T>
+              <T>Deserialized.System.Object</T>
+            </TN>
+            <ToString>Running</ToString>
+            <I32>1</I32>
+          </Obj>
+          <Nil N="Output" />
+          <Nil N="Script" />
+          <B N="IsScriptDeleted">false</B>
+          <S N="ScriptFullPath">JobDumper.ps1</S>
+          <Nil N="ScriptCommitId" />
+          <Nil N="AppToken" />
+          <Obj N="Identity" RefId="3">
+            <TN RefId="3">
+              <T>Deserialized.PowerShellUniversal.Identity</T>
+              <T>Deserialized.System.Object</T>
+            </TN>
+            <ToString>PowerShellUniversal.Identity</ToString>
+            <Props>
+              <I64 N="Id">2</I64>
+              <S N="Name">u55398b</S>
+              <S N="Source">Git</S>
+              <Nil N="Role" />
+              <Nil N="RoleName" />
+              <Nil N="Roles" />
+              <Nil N="CredentialVault" />
+              <Nil N="Password" />
+              <B N="LocalAccount">false</B>
+              <Nil N="OldPassword" />
+            </Props>
+          </Obj>
+          <Nil N="ParentJob" />
+          <I32 N="ParentLineNumber">0</I32>
+          <B N="Debug">false</B>
+          <S N="ComputerName">SVR-PSU-APPDEV</S>
+          <I32 N="Port">0</I32>
+          <I32 N="ProcessId">0</I32>
+          <I64 N="MemoryBytes">0</I64>
+          <I32 N="RunspaceId">0</I32>
+          <Nil N="Activity" />
+          <Nil N="CurrentOperation" />
+          <I32 N="PercentComplete">0</I32>
+          <I32 N="SecondsRemaining">0</I32>
+          <Nil N="StatusDescription" />
+          <S N="Environment">Integrated</S>
+          <Nil N="Agent" />
+          <Nil N="Computer" />
+          <Obj N="ErrorAction" RefId="4">
+            <TN RefId="4">
+              <T>Deserialized.System.Management.Automation.ActionPreference</T>
+              <T>Deserialized.System.Enum</T>
+              <T>Deserialized.System.ValueType</T>
+              <T>Deserialized.System.Object</T>
+            </TN>
+            <ToString>Continue</ToString>
+            <I32>2</I32>
+          </Obj>
+          <Nil N="Children" />
+          <Nil N="JobOutput" />
+          <Obj N="Parameters" RefId="5">
+            <TN RefId="5">
+              <T>Deserialized.PowerShellUniversal.JobParameter[]</T>
+              <T>Deserialized.System.Array</T>
+              <T>Deserialized.System.Object</T>
+            </TN>
+            <LST />
+          </Obj>
+          <Nil N="Notes" />
+          <Nil N="Credential" />
+          <I64 N="ScheduleId">0</I64>
+          <B N="Triggered">false</B>
+          <Nil N="Trigger" />
+          <Nil N="AccessToken" />
+          <Nil N="IdToken" />
+          <I32 N="RetryCount">0</I32>
+          <Nil N="Tags" />
+          <Nil N="Schedule" />
+          <B N="Archived">false</B>
+          <B N="Batch">false</B>
+          <Nil N="RunId" />
+          <Nil N="Roles" />
+          <Nil N="RefreshToken" />
+          <Nil N="JobFeedbacks" />
+          <Nil N="Notifications" />
+          <Nil N="JobPipelineOutputs" />
+        </Props>
+      </Obj>
+      <Obj N="UAScript" RefId="6">
+        <TN RefId="6">
+          <T>Deserialized.PowerShellUniversal.Script</T>
+          <T>Deserialized.System.Object</T>
+        </TN>
+        <ToString>JobDumper.ps1</ToString>
+        <Props>
+          <I64 N="Id">1</I64>
+          <S N="Name">JobDumper.ps1</S>
+          <Nil N="OldName" />
+          <S N="Description">JobDumper.ps1 _x000D__x000A_</S>
+          <DT N="CreatedTime">2023-10-11T23:53:07.0979138Z</DT>
+          <Db N="ManualTime">0</Db>
+          <Db N="TimeOut">0</Db>
+          <Nil N="CommitId" />
+          <S N="Content">[PSCustomObject] @{_x000D__x000A_    UAJob = $UAJob_x000D__x000A_    UAScript = $UAScript_x000D__x000A_} | Export-CliXml D:\jobdumper.xml</S>
+          <Obj N="ScriptParameters" RefId="7">
+            <TN RefId="7">
+              <T>Deserialized.System.Collections.Generic.List`1[[PowerShellUniversal.ScriptParameter, PowerShellUniversal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]</T>
+              <T>Deserialized.System.Object</T>
+            </TN>
+            <LST />
+          </Obj>
+          <Obj N="Identity" RefId="8">
+            <TNRef RefId="3" />
+            <ToString>PowerShellUniversal.Identity</ToString>
+            <Props>
+              <I64 N="Id">1</I64>
+              <S N="Name">admin</S>
+              <S N="Source">Git</S>
+              <Nil N="Role" />
+              <S N="RoleName">Administrator</S>
+              <Obj N="Roles" RefId="9">
+                <TN RefId="8">
+                  <T>Deserialized.System.String[]</T>
+                  <T>Deserialized.System.Array</T>
+                  <T>Deserialized.System.Object</T>
+                </TN>
+                <LST>
+                  <S>Administrator</S>
+                </LST>
+              </Obj>
+              <S N="CredentialVault">Database</S>
+              <Nil N="Password" />
+              <B N="LocalAccount">true</B>
+              <Nil N="OldPassword" />
+            </Props>
+          </Obj>
+          <Obj N="Status" RefId="10">
+            <TN RefId="9">
+              <T>Deserialized.PowerShellUniversal.ScriptStatus</T>
+              <T>Deserialized.System.Enum</T>
+              <T>Deserialized.System.ValueType</T>
+              <T>Deserialized.System.Object</T>
+            </TN>
+            <ToString>Draft</ToString>
+            <I32>0</I32>
+          </Obj>
+          <Nil N="Tag" />
+          <S N="FullPath">JobDumper.ps1</S>
+          <Nil N="RequiredPowerShellVersion" />
+          <Nil N="Environment" />
+          <Obj N="ErrorAction" RefId="11">
+            <TNRef RefId="4" />
+            <ToString>Continue</ToString>
+            <I32>2</I32>
+          </Obj>
+          <Obj N="InformationAction" RefId="12">
+            <TNRef RefId="4" />
+            <ToString>Continue</ToString>
+            <I32>2</I32>
+          </Obj>
+          <B N="Verbose">false</B>
+          <B N="Debug">false</B>
+          <Nil N="CommitNotes" />
+          <B N="DisableManualInvocation">false</B>
+          <I32 N="MaxHistory">100</I32>
+          <I32 N="ConcurrentJobs">100</I32>
+          <Nil N="Credential" />
+          <Obj N="AccessControls" RefId="13">
+            <TN RefId="10">
+              <T>Deserialized.PowerShellUniversal.AccessControlType</T>
+              <T>Deserialized.System.Enum</T>
+              <T>Deserialized.System.ValueType</T>
+              <T>Deserialized.System.Object</T>
+            </TN>
+            <ToString>All</ToString>
+            <I32>127</I32>
+          </Obj>
+          <I32 N="RetryLimit">0</I32>
+          <B N="Anonymous">false</B>
+          <B N="DiscardPipeline">false</B>
+          <Nil N="LongDescription" />
+          <Obj N="Links" RefId="14">
+            <TN RefId="11">
+              <T>Deserialized.System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]</T>
+              <T>Deserialized.System.Object</T>
+            </TN>
+            <LST />
+          </Obj>
+          <Nil N="Examples" />
+          <Nil N="DefaultParameterSet" />
+          <B N="LoadProfile">false</B>
+          <Nil N="WorkingDirectory" />
+          <Obj N="ParameterSets" RefId="15">
+            <TNRef RefId="11" />
+            <LST />
+          </Obj>
+          <S N="Folder"></S>
+          <Nil N="OldFolder" />
+          <B N="ReadOnly">false</B>
+          <S N="ResolvedPath">D:\UniversalAutomation\Repository\JobDumper.ps1</S>
+          <Nil N="Module" />
+          <Nil N="Command" />
+          <Nil N="Role" />
+          <Nil N="PreviousContent" />
+        </Props>
+      </Obj>
+    </MS>
+  </Obj>
+</Objs>

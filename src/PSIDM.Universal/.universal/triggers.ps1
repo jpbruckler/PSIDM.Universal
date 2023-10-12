@@ -1,0 +1,1 @@
+New-PSUTrigger -Name "Offboard Completed" -Script "offboard.ps1" -EventType "JobCompleted" -Environment "Default" -TriggerScript "psidmjobcompleted.ps1"

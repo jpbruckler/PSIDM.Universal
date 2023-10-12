@@ -51,3 +51,67 @@ $export = $public + $private
 
 # export all public functions
 Export-ModuleMember -Function $export.BaseName
+
+# Class definitions
+class PSIDMJobInfo {
+    [psobject] $UAJob
+    [psobject] $UAScript
+    [string] $Identity
+    [int] $JobID
+    [int] $ScriptID
+    [string] $ScriptName
+
+    PSIDMJobInfo() { }
+
+    PSIDMJobInfo([psobject]$UABuiltInVar) {
+        if ($UABuiltInVar.ToString() -ne 'PowerShellUniversal.BuiltInVariable') {
+            # argument passed is a script object
+            $this.UAScript = $UABuiltInVar
+        }
+        else {
+            # argument passed is a job object
+            $this.UAJob = $UABuiltInVar
+        }
+        $null = $this.SetIDs()
+    }
+
+    PSIDMJobInfo([psobject] $UAJob, [psobject] $UAScript) {
+        if ($UAJob.ToString() -ne 'PowerShellUniversal.Job') {
+            throw 'UAJob must be of type PowerShellUniversal.Job'
+        }
+
+        $this.UAJob     = $UAJob
+        $this.UAScript  = $UAScript
+        $null = $this.SetIDs()
+    }
+
+    [psobject] SetIDs() {
+        $status = [pscustomobject]@{
+            IsSuccessful  = $false
+            SetProperties = @()
+            Message       = ""
+        }
+
+        if ($this.UAJob) {
+            $this.Identity = $this.UAJob.Identity.Name
+            $this.JobID    = $this.UAJob.Id
+            $status.SetProperties += 'Identity', 'JobID'
+        }
+
+        if ($this.UAScript) {
+            $this.ScriptID = $this.UAScript.Id
+            $this.ScriptName = $this.UAScript.Name
+            $status.SetProperties += 'ScriptID'
+        }
+
+        if ($status.SetProperties.Count -gt 0) {
+            $status.IsSuccessful = $true
+            $status.Message = "Properties set: $($status.SetProperties -join ', ')"
+        }
+        else {
+            $status.Message = "No properties set."
+        }
+
+        return $status
+    }
+}

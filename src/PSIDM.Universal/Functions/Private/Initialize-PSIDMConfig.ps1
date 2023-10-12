@@ -67,6 +67,13 @@ function Initialize-PSIDMConfig {
                     NotifyRoot      = Join-Path $moduleRoot -ChildPath 'Notification'
                 }
             }
+            SMTP    = @{
+                Server  = ''
+                Port    = 25
+                From    = ''
+                UseSSL  = $true
+                CredentialName = 'PSIDM-SMTP'
+            }
             Jobs    = @{
                 JobList = @(
                     @{
