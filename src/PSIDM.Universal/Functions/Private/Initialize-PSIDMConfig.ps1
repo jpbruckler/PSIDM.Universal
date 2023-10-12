@@ -47,6 +47,7 @@ function Initialize-PSIDMConfig {
         }
 
         $configObject  = @{
+            Version   = '1.0.0'
             Module  = @{
                 AD      = @{
                     Domain  = @{
@@ -65,6 +66,7 @@ function Initialize-PSIDMConfig {
                     ScriptRoot      = Join-Path $moduleRoot -ChildPath 'Universal\scripts'
                     JobRoot         = Join-Path $moduleRoot -ChildPath 'Jobs'
                     NotifyRoot      = Join-Path $moduleRoot -ChildPath 'Notification'
+                    ActionRoot      = Join-Path $moduleRoot -ChildPath 'Universal\Actions'
                 }
             }
             SMTP    = @{

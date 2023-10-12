@@ -54,6 +54,7 @@ Description = 'PowerShell Universal App for PSIDM'
 RequiredModules = @(
     @{ ModuleName = 'ActiveDirectory'; ModuleVersion = '1.0.1.0' }
     @{ ModuleName = 'Send-MailKitMessage'; ModuleVersion = '3.2.0' }
+    @{ ModuleName = 'ldbc'; ModuleVersion = '0.8.7'}
 )
 
 # Assemblies that must be loaded prior to importing this module

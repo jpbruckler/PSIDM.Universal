@@ -10,5 +10,11 @@ function Invoke-PSIDMAction {
         [object] $JobInfo
     )
 
+    begin {
+        $actionRoot = Get-PSIDMConfig -path Module.Paths.ActionRoot
+    }
 
+    process {
+        $actionSB = Get-PSIDMAction -Action $Action
+    }
 }

@@ -60,6 +60,7 @@ class PSIDMJobInfo {
     [int] $JobID
     [int] $ScriptID
     [string] $ScriptName
+    [string[]] $Actions
 
     PSIDMJobInfo() { }
 
