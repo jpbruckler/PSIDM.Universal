@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-2020-12/schema",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "description": "The id must be a valid GUID."
+            },
+            "name": {
+                "type": "string",
+                "description": "The name of the item."
+            }
+        },
+        "required": [
+            "id",
+            "name"
+        ]
+    }
+}

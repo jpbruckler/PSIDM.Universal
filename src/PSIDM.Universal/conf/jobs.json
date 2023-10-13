@@ -1,0 +1,40 @@
+{
+  "JobList": [
+    {
+      "Description": "Offboard designated users.",
+      "Schedule": {
+        "Credential": "PSIDM-ADWrite",
+        "TimeZone": "UTC",
+        "Cron": "0 18 * * *"
+      },
+      "Script": "offboard.ps1",
+      "Name": "User Offboarding",
+      "CsvPropertyMap": [
+        {
+          "AdProperty": "DisplayName",
+          "CsvHeader": "EmpDispName"
+        },
+        {
+          "AdProperty": "SamAccountName",
+          "CsvHeader": "SamAcct"
+        },
+        {
+          "AdProperty": "UserPrincipalName",
+          "CsvHeader": "Upn"
+        }
+      ],
+      "Id": "a839b642-c31b-4bb8-8c9e-14cfeebb7cb7"
+    },
+    {
+      "Name": "User Onboarding",
+      "Schedule": {
+        "Credential": "PSIDM-ADWrite",
+        "TimeZone": "UTC",
+        "Cron": "0 6 * * *"
+      },
+      "Description": "Onboard designated users.",
+      "Script": "onboard.ps1",
+      "Id": "a2290ab1-24fa-4677-bea7-8f1427268e37"
+    }
+  ]
+}

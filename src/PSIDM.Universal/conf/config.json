@@ -1,0 +1,21 @@
+{
+  "AD": {
+    "DefaultEmailDomain": "dtm.dtmidstream.com",
+    "Domain": {
+      "DNSRoot": "dtm.dtmidstream.com",
+      "Name": "dtm"
+    },
+    "DefaultUPNSuffix": "dtm.dtmidstream.com"
+  },
+  "Paths": {
+    "ConfigRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\conf",
+    "ScriptRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Universal\\scripts",
+    "PageRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Universal\\pages",
+    "ActionRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Universal\\actions",
+    "ModuleRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal",
+    "JobRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Jobs",
+    "NotifyRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Notification",
+    "ResourceRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\conf\\resources"
+  },
+  "TimeZone": "Eastern Standard Time"
+}

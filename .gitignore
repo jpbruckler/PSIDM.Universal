@@ -1,8 +1,9 @@
-conf
 Archive
 Artifacts
 cov.xml
 coverage.xml
+*.bk
+*.old
 # OS generated files #
 ######################
 .DS_Store
