@@ -49,11 +49,8 @@ function Get-PSIDMConfig {
         try {
             $CurrentRuntime = Import-PSIDMConfig -PassThru
         }
-        catch [System.IO.FileNotFoundException] {
-            throw [System.IO.FileNotFoundException] "The configuration file '$Path' does not exist. Call with the -Force parameter to force initialization, or provide a different path."
-        }
         catch {
-            throw $_
+            throw "Unable to import PSIDM configuration. Error: $_"
         }
     }
     else {

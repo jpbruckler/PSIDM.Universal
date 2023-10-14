@@ -1,21 +1,45 @@
 {
+  "Version": "1.0.0",
   "AD": {
-    "DefaultEmailDomain": "dtm.dtmidstream.com",
     "Domain": {
-      "DNSRoot": "dtm.dtmidstream.com",
-      "Name": "dtm"
+      "Name": "DTM",
+      "DNSRoot": "DTM.DTMIDSTREAM.COM"
     },
-    "DefaultUPNSuffix": "dtm.dtmidstream.com"
+    "WriteCredential": "PSIDM-ADWrite",
+    "ReadCredential": "PSIDM-ADRead",
+    "AccountDefaults": {
+      "EmailDomain": "DTM.DTMIDSTREAM.COM",
+      "UpnSuffix": "DTM.DTMIDSTREAM.COM",
+      "EmailFormat": "{{GivenName}}.{{Surname}}@{{EmailDomain}}",
+      "Password": {
+        "Length": 16
+      },
+      "UpnFormat": "{{GivenName}}.{{Surname}}@{{UpnSuffix}}"
+    }
   },
+  "TimeZone": "Eastern Standard Time",
   "Paths": {
-    "ConfigRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\conf",
+    "ResourceRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\conf\\resources",
+    "ActionRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Universal\\Actions",
     "ScriptRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Universal\\scripts",
-    "PageRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Universal\\pages",
-    "ActionRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Universal\\actions",
-    "ModuleRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal",
-    "JobRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Jobs",
+    "ConfigRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\conf",
     "NotifyRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Notification",
-    "ResourceRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\conf\\resources"
+    "PageRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Universal\\pages",
+    "JobRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\Jobs",
+    "ModuleRoot": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal"
   },
-  "TimeZone": "Eastern Standard Time"
+  "SMTP": {
+    "Server": "",
+    "From": "",
+    "UseSSL": true,
+    "Port": 25,
+    "CredentialName": "PSIDM-SMTP"
+  },
+  "NetShare": {
+    "Path": "\\\\server\\share",
+    "CredentialName": "PSIDM-NetShare"
+  },
+  "LiteDB": {
+    "Path": "C:\\Users\\u55398\\Documents\\git\\PSIDM.Universal\\src\\PSIDM.Universal\\conf\\psidm.db"
+  }
 }

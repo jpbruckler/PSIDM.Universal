@@ -35,14 +35,27 @@ function New-PSIDMAction {
     #>
     [CmdletBinding()]
     param(
-        [scriptblock] $Action,
-        [string] $Name
+        [Parameter(Mandatory = $true)]
+        [string] $Name,
+
+        [Parameter(Mandatory = $false)]
+        [Alias('Script','ScriptBlock')]
+        [scriptblock] $ActionScript
     )
 
     begin {
         $configRoot = Get-PSIDMConfig -path Module.Paths.ConfigRoot
         $actionRoot = Get-PSIDMConfig -path Module.Paths.ActionRoot
         $actionMapPath = Join-Path $configRoot -ChildPath 'actionmap.json'
+        if (-not (Test-Path $actionRoot)) {
+            Write-Verbose "Creating action root directory at '$actionRoot'"
+            try {
+                New-Item -Path $actionRoot -ItemType Directory -ErrorAction Stop | Out-Null
+            }
+            catch {
+                throw "Unable to create action root directory at '$actionRoot'. Error: $_"
+            }
+        }
     }
 
     process {
@@ -55,24 +68,36 @@ function New-PSIDMAction {
         $actionFilePath = Join-Path $actionRoot -ChildPath "$guid.ps1"
 
         $actionMap = Get-Content -Path $actionMapPath -Raw | ConvertFrom-Json
-        Write-Debug "Checking for name collision with '$Name'"
-        # Check if the action name already exists in the map
-        $actionMap = Get-PSIDMAction -Name $Name -ErrorAction SilentlyContinue
-        if ($actionMap) {
-            $oldName = $Name
-            $Name = "$Name-$guid"
-            Write-Debug "Name collision detected. New name: $Name"
-            Write-Warning "Action '$oldName' already exists. A new action will be created with a unique name."
-            Write-Warning "New action name: $Name"
+        try {
+            Write-Debug "Checking for name collision with '$Name'"
+            # Check if the action name already exists in the map
+            $actionMap = Get-PSIDMAction -Action $Name
+            if ($actionMap) {
+                $oldName = $Name
+                $Name = "$Name-$guid"
+                Write-Debug "Name collision detected. New name: $Name"
+                Write-Warning "Action '$oldName' already exists. A new action will be created with a unique name."
+                Write-Warning "New action name: $Name"
+            }
+        }
+        catch [System.IO.FileNotFoundException] {
+            # If the action name does not exist in the map, the exception will
+            # be caught here. This is expected behavior.
+            Write-Debug "Name collision not detected."
+        }
+        catch {
+            throw "Unable to check for name collision. Error: $_"
         }
 
         Write-Verbose "Creating new action file at '$actionFilePath'"
-
+        if ($null -eq $ActionScript) {
+            $ActionScript = [scriptblock]::Create("# It all starts with a single line of code...")
+        }
         $output = [PSCustomObject]@{
             name    = $Name
             id      = $guid
             file    = $actionFilePath
-            content = $Action.ToString()
+            content = $ActionScript.ToString()
         }
 
         try {
